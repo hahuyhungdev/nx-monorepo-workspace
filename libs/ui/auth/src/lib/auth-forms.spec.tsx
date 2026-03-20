@@ -16,6 +16,8 @@ describe('SignupForm', () => {
     expect(screen.getByLabelText(/name/i)).toBeDefined();
     expect(screen.getByLabelText(/email/i)).toBeDefined();
     expect(screen.getByLabelText(/password/i)).toBeDefined();
-    expect(screen.getByRole('button', { name: /create account/i })).toBeDefined();
+    expect(
+      screen.getByRole('button', { name: /create account/i })
+    ).toBeDefined();
   });
 });

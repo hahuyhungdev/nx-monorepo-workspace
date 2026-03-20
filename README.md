@@ -34,20 +34,20 @@ my-org/
 
 ## 12 Projects
 
-| Project              | Type         | Domain   | Tags                                    |
-| -------------------- | ------------ | -------- | --------------------------------------- |
-| `web`                | App          | -        | `scope:app`, `type:app`, `scope:client` |
-| `api`                | App          | -        | `scope:app`, `type:app`, `scope:server` |
-| `feature-auth`       | Feature lib  | auth     | `scope:feature`, `type:feature`, `domain:auth` |
-| `feature-billing`    | Feature lib  | billing  | `scope:feature`, `type:feature`, `domain:billing` |
-| `data-access-auth`   | Data lib     | auth     | `scope:data-access`, `type:data-access`, `domain:auth` |
-| `data-access-billing`| Data lib     | billing  | `scope:data-access`, `type:data-access`, `domain:billing` |
-| `ui-auth`            | UI lib       | auth     | `scope:ui`, `type:ui`, `domain:auth`   |
-| `ui-billing`         | UI lib       | billing  | `scope:ui`, `type:ui`, `domain:billing` |
-| `feature`            | Feature lib  | shared   | `scope:feature`, `domain:shared`        |
-| `data-access`        | Data lib     | shared   | `scope:data-access`, `domain:shared`    |
-| `ui`                 | UI lib       | shared   | `scope:ui`, `domain:shared`             |
-| `utils`              | Util lib     | shared   | `scope:shared`, `domain:shared`         |
+| Project               | Type        | Domain  | Tags                                                      |
+| --------------------- | ----------- | ------- | --------------------------------------------------------- |
+| `web`                 | App         | -       | `scope:app`, `type:app`, `scope:client`                   |
+| `api`                 | App         | -       | `scope:app`, `type:app`, `scope:server`                   |
+| `feature-auth`        | Feature lib | auth    | `scope:feature`, `type:feature`, `domain:auth`            |
+| `feature-billing`     | Feature lib | billing | `scope:feature`, `type:feature`, `domain:billing`         |
+| `data-access-auth`    | Data lib    | auth    | `scope:data-access`, `type:data-access`, `domain:auth`    |
+| `data-access-billing` | Data lib    | billing | `scope:data-access`, `type:data-access`, `domain:billing` |
+| `ui-auth`             | UI lib      | auth    | `scope:ui`, `type:ui`, `domain:auth`                      |
+| `ui-billing`          | UI lib      | billing | `scope:ui`, `type:ui`, `domain:billing`                   |
+| `feature`             | Feature lib | shared  | `scope:feature`, `domain:shared`                          |
+| `data-access`         | Data lib    | shared  | `scope:data-access`, `domain:shared`                      |
+| `ui`                  | UI lib      | shared  | `scope:ui`, `domain:shared`                               |
+| `utils`               | Util lib    | shared  | `scope:shared`, `domain:shared`                           |
 
 ## Architecture: Domain-Driven Dependencies
 
@@ -90,24 +90,27 @@ my-org/
 ESLint `@nx/enforce-module-boundaries` enforces:
 
 ### 1. Scope-based (vertical layers)
-| Layer         | Can depend on                   | Cannot depend on     |
-| ------------- | ------------------------------- | -------------------- |
-| `scope:app`   | feature, ui, data-access, shared| other apps           |
-| `scope:feature` | ui, data-access, shared       | apps                 |
-| `scope:ui`      | shared                        | feature, data-access |
-| `scope:data-access` | shared                    | feature, ui          |
-| `scope:shared`  | (nothing)                     | everything else      |
+
+| Layer               | Can depend on                    | Cannot depend on     |
+| ------------------- | -------------------------------- | -------------------- |
+| `scope:app`         | feature, ui, data-access, shared | other apps           |
+| `scope:feature`     | ui, data-access, shared          | apps                 |
+| `scope:ui`          | shared                           | feature, data-access |
+| `scope:data-access` | shared                           | feature, ui          |
+| `scope:shared`      | (nothing)                        | everything else      |
 
 ### 2. Type-based (architectural roles)
-| Type          | Can depend on                   |
-| ------------- | ------------------------------- |
-| `type:app`    | feature, ui, data-access, util  |
-| `type:feature`| ui, data-access, util           |
-| `type:ui`     | util                            |
-| `type:data-access` | util                       |
-| `type:util`   | (nothing)                       |
+
+| Type               | Can depend on                  |
+| ------------------ | ------------------------------ |
+| `type:app`         | feature, ui, data-access, util |
+| `type:feature`     | ui, data-access, util          |
+| `type:ui`          | util                           |
+| `type:data-access` | util                           |
+| `type:util`        | (nothing)                      |
 
 ### 3. Domain-based (feature isolation)
+
 - `domain:auth` → can only use auth domain + shared
 - `domain:billing` → can only use billing domain + shared
 - `domain:shared` → can be used by all domains
@@ -210,15 +213,15 @@ nx build <project> --verbose     # Verbose build output
 
 ## Tech Stack
 
-| Layer    | Technology                |
-| -------- | ------------------------- |
-| Frontend | React 19 + Vite 7         |
-| Backend  | Express 4 + esbuild       |
-| Testing  | Vitest 4 / Jest 30        |
-| Linting  | ESLint 9 (flat config)    |
-| Format   | Prettier 3                |
-| Build    | Nx 22 (parallel=3, cached)|
-| Package  | pnpm 10                   |
+| Layer    | Technology                 |
+| -------- | -------------------------- |
+| Frontend | React 19 + Vite 7          |
+| Backend  | Express 4 + esbuild        |
+| Testing  | Vitest 4 / Jest 30         |
+| Linting  | ESLint 9 (flat config)     |
+| Format   | Prettier 3                 |
+| Build    | Nx 22 (parallel=3, cached) |
+| Package  | pnpm 10                    |
 
 ## CI/CD Features
 
