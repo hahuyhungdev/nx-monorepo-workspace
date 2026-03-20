@@ -1,0 +1,8 @@
+{
+  "name": "be-shared",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/be-shared/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:lib", "platform:be"],
+  "targets": {}
+}

@@ -12,37 +12,15 @@ export default [
           allow: [],
           depConstraints: [
             // ═══════════════════════════════════════════════
-            // TYPE RULES  (layered architecture)
-            // app → feature → ui / data-access → util
+            // PLATFORM ISOLATION — FE cannot import BE code
             // ═══════════════════════════════════════════════
             {
-              sourceTag: 'type:app',
-              onlyDependOnLibsWithTags: [
-                'type:feature',
-                'type:ui',
-                'type:data-access',
-                'type:util',
-              ],
+              sourceTag: 'platform:fe',
+              onlyDependOnLibsWithTags: ['platform:fe', 'platform:shared'],
             },
             {
-              sourceTag: 'type:feature',
-              onlyDependOnLibsWithTags: [
-                'type:ui',
-                'type:data-access',
-                'type:util',
-              ],
-            },
-            {
-              sourceTag: 'type:ui',
-              onlyDependOnLibsWithTags: ['type:ui', 'type:util'],
-            },
-            {
-              sourceTag: 'type:data-access',
-              onlyDependOnLibsWithTags: ['type:data-access', 'type:util'],
-            },
-            {
-              sourceTag: 'type:util',
-              onlyDependOnLibsWithTags: ['type:util'],
+              sourceTag: 'platform:be',
+              onlyDependOnLibsWithTags: ['platform:be', 'platform:shared'],
             },
 
             // ═══════════════════════════════════════════════
@@ -58,6 +36,10 @@ export default [
               onlyDependOnLibsWithTags: ['scope:billing', 'scope:shared'],
             },
             {
+              sourceTag: 'scope:dashboard',
+              onlyDependOnLibsWithTags: ['scope:dashboard', 'scope:shared'],
+            },
+            {
               sourceTag: 'scope:shared',
               onlyDependOnLibsWithTags: ['scope:shared'],
             },
@@ -67,6 +49,7 @@ export default [
               onlyDependOnLibsWithTags: [
                 'scope:auth',
                 'scope:billing',
+                'scope:dashboard',
                 'scope:shared',
               ],
             },

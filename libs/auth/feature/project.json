@@ -1,9 +1,0 @@
-{
-  "name": "auth-feature",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/auth/feature/src",
-  "projectType": "library",
-  "tags": ["scope:auth", "type:feature"],
-  "// targets": "to see all targets run: nx show project auth-feature --web",
-  "targets": {}
-}

@@ -15,14 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-org/auth/feature": ["libs/auth/feature/src/index.ts"],
-      "@my-org/auth/ui": ["libs/auth/ui/src/index.ts"],
-      "@my-org/auth/data-access": ["libs/auth/data-access/src/index.ts"],
-      "@my-org/billing/feature": ["libs/billing/feature/src/index.ts"],
-      "@my-org/billing/ui": ["libs/billing/ui/src/index.ts"],
-      "@my-org/billing/data-access": ["libs/billing/data-access/src/index.ts"],
+      "@my-org/auth": ["libs/auth/src/index.ts"],
+      "@my-org/billing": ["libs/billing/src/index.ts"],
+      "@my-org/dashboard": ["libs/dashboard/src/index.ts"],
       "@my-org/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@my-org/shared/util": ["libs/shared/util/src/index.ts"]
+      "@my-org/shared/util": ["libs/shared/util/src/index.ts"],
+      "@my-org/be-shared": ["libs/be-shared/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

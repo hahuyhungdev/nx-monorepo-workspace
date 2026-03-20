@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/backoffice/src",
   "projectType": "application",
-  "tags": ["scope:app", "type:app"],
+  "tags": ["scope:app", "type:app", "platform:fe"],
   "// targets": "to see all targets run: nx show project backoffice --web",
   "targets": {}
 }

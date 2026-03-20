@@ -1,32 +1,26 @@
 /**
  * apps/front-office — Thin app shell for SaaS platform.
- * Contains ZERO business logic. Only wires together:
- *   - Feature libs (auth, billing)
- *   - UI libs (auth forms, billing cards, shared components)
- *   - Shared utils
+ * Contains ZERO business logic. Only wires together domain libs.
  *
  * ✅ Correct imports (enforced by ESLint):
- *   @my-org/auth/feature        → auth hooks & provider
- *   @my-org/billing/feature     → billing hooks & provider
- *   @my-org/auth/ui             → auth UI components
- *   @my-org/billing/ui          → billing UI components
- *   @my-org/shared/ui           → shared design system
- *   @my-org/shared/util         → pure helpers
+ *   @my-org/auth         → auth hooks, provider, pages, UI
+ *   @my-org/billing      → billing hooks, provider, UI
+ *   @my-org/shared/ui    → shared design system
+ *   @my-org/shared/util  → pure helpers
  */
 import { Route, Routes, Link } from 'react-router-dom';
-import { AuthProvider, useAuth, ProtectedRoute } from '@my-org/auth/feature';
-import { BillingProvider, useBilling } from '@my-org/billing/feature';
-import { LoginForm, SignupForm } from '@my-org/auth/ui';
-import { PricingCard } from '@my-org/billing/ui';
+import {
+  AuthProvider,
+  useAuth,
+  ProtectedRoute,
+  LoginPage,
+  SignupForm,
+} from '@my-org/auth';
+import { BillingProvider, useBilling, PricingCard } from '@my-org/billing';
 import { Button, Card } from '@my-org/shared/ui';
 import { formatDate } from '@my-org/shared/util';
 
-// ─── Auth Pages (thin — delegates to feature + ui libs) ──
-
-function LoginPage() {
-  const { login, isLoading, error } = useAuth();
-  return <LoginForm onSubmit={login} isLoading={isLoading} error={error} />;
-}
+// ─── Auth Pages ──────────────────────────────────────────
 
 function SignupPage() {
   const { signup, isLoading, error } = useAuth();
