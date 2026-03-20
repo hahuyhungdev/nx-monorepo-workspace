@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "defaultBase": "master",
   "analytics": false,
+  "parallel": 3,
+  "cacheDirectory": ".nx/cache",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [

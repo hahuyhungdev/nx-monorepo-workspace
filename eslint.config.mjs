@@ -10,8 +10,12 @@ export default [
           enforceBuildableLibDependency: true,
           allow: [],
           depConstraints: [
-            // ─── Scope-based rules ───
-            // Apps are thin shells — they wire together libs but contain no logic
+            // ═══════════════════════════════════════════════
+            // LAYER RULES (scope-based)
+            // Enforces: app → feature → ui / data-access → shared
+            // ═══════════════════════════════════════════════
+
+            // Apps are thin shells — compose features, ui, and shared
             {
               sourceTag: 'scope:app',
               onlyDependOnLibsWithTags: [
@@ -21,7 +25,7 @@ export default [
                 'scope:shared',
               ],
             },
-            // Features contain business logic; depend on ui, data-access, utils
+            // Features = business logic; use ui + data-access + shared
             {
               sourceTag: 'scope:feature',
               onlyDependOnLibsWithTags: [
@@ -30,23 +34,26 @@ export default [
                 'scope:shared',
               ],
             },
-            // UI components are presentational; depend only on utils/shared
+            // UI = presentational only; depends on shared/utils
             {
               sourceTag: 'scope:ui',
               onlyDependOnLibsWithTags: ['scope:shared'],
             },
-            // Data-access handles API/DB; depends only on utils/shared
+            // Data-access = API/DB layer; depends on shared/utils
             {
               sourceTag: 'scope:data-access',
               onlyDependOnLibsWithTags: ['scope:shared'],
             },
-            // Shared/utils is the leaf — depends only on other shared libs
+            // Shared = leaf layer (utils, types, constants)
             {
               sourceTag: 'scope:shared',
               onlyDependOnLibsWithTags: ['scope:shared'],
             },
 
-            // ─── Platform-based rules ───
+            // ═══════════════════════════════════════════════
+            // PLATFORM RULES
+            // Prevent client ↔ server cross-imports
+            // ═══════════════════════════════════════════════
             {
               sourceTag: 'scope:client',
               onlyDependOnLibsWithTags: ['scope:client', 'scope:shared'],
@@ -56,8 +63,10 @@ export default [
               onlyDependOnLibsWithTags: ['scope:server', 'scope:shared'],
             },
 
-            // ─── Type-based rules (layered architecture) ───
+            // ═══════════════════════════════════════════════
+            // TYPE RULES (layered architecture)
             // type:app → type:feature → type:ui / type:data-access → type:util
+            // ═══════════════════════════════════════════════
             {
               sourceTag: 'type:app',
               onlyDependOnLibsWithTags: [
@@ -86,6 +95,20 @@ export default [
             {
               sourceTag: 'type:util',
               onlyDependOnLibsWithTags: ['type:util'],
+            },
+
+            // ═══════════════════════════════════════════════
+            // DOMAIN RULES
+            // Each domain can use its own libs + shared (no domain)
+            // Prevents: billing importing from auth internals, etc.
+            // ═══════════════════════════════════════════════
+            {
+              sourceTag: 'domain:auth',
+              onlyDependOnLibsWithTags: ['domain:auth', 'domain:shared'],
+            },
+            {
+              sourceTag: 'domain:billing',
+              onlyDependOnLibsWithTags: ['domain:billing', 'domain:shared'],
             },
           ],
         },

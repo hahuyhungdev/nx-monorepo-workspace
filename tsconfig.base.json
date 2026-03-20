@@ -18,7 +18,13 @@
       "@my-org/ui": ["libs/ui/src/index.ts"],
       "@my-org/feature": ["libs/feature/src/index.ts"],
       "@my-org/data-access": ["libs/data-access/src/index.ts"],
-      "@my-org/utils": ["libs/utils/src/index.ts"]
+      "@my-org/utils": ["libs/utils/src/index.ts"],
+      "@my-org/feature-auth": ["libs/feature/auth/src/index.ts"],
+      "@my-org/data-access-auth": ["libs/data-access/auth/src/index.ts"],
+      "@my-org/ui-auth": ["libs/ui/auth/src/index.ts"],
+      "@my-org/feature-billing": ["libs/feature/billing/src/index.ts"],
+      "@my-org/data-access-billing": ["libs/data-access/billing/src/index.ts"],
+      "@my-org/ui-billing": ["libs/ui/billing/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/data-access/src",
   "projectType": "library",
-  "tags": ["scope:data-access", "type:data-access", "scope:shared"],
+  "tags": ["scope:data-access", "type:data-access", "scope:shared", "domain:shared"],
   "// targets": "to see all targets run: nx show project data-access --web",
   "targets": {}
 }
