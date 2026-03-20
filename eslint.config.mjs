@@ -12,61 +12,8 @@ export default [
           allow: [],
           depConstraints: [
             // ═══════════════════════════════════════════════
-            // LAYER RULES (scope-based)
-            // Enforces: app → feature → ui / data-access → shared
-            // ═══════════════════════════════════════════════
-
-            // Apps are thin shells — compose features, ui, and shared
-            {
-              sourceTag: 'scope:app',
-              onlyDependOnLibsWithTags: [
-                'scope:feature',
-                'scope:ui',
-                'scope:data-access',
-                'scope:shared',
-              ],
-            },
-            // Features = business logic; use ui + data-access + shared
-            {
-              sourceTag: 'scope:feature',
-              onlyDependOnLibsWithTags: [
-                'scope:ui',
-                'scope:data-access',
-                'scope:shared',
-              ],
-            },
-            // UI = presentational only; depends on shared/utils
-            {
-              sourceTag: 'scope:ui',
-              onlyDependOnLibsWithTags: ['scope:shared'],
-            },
-            // Data-access = API/DB layer; depends on shared/utils
-            {
-              sourceTag: 'scope:data-access',
-              onlyDependOnLibsWithTags: ['scope:shared'],
-            },
-            // Shared = leaf layer (utils, types, constants)
-            {
-              sourceTag: 'scope:shared',
-              onlyDependOnLibsWithTags: ['scope:shared'],
-            },
-
-            // ═══════════════════════════════════════════════
-            // PLATFORM RULES
-            // Prevent client ↔ server cross-imports
-            // ═══════════════════════════════════════════════
-            {
-              sourceTag: 'scope:client',
-              notDependOnLibsWithTags: ['scope:server'],
-            },
-            {
-              sourceTag: 'scope:server',
-              notDependOnLibsWithTags: ['scope:client'],
-            },
-
-            // ═══════════════════════════════════════════════
-            // TYPE RULES (layered architecture)
-            // type:app → type:feature → type:ui / type:data-access → type:util
+            // TYPE RULES  (layered architecture)
+            // app → feature → ui / data-access → util
             // ═══════════════════════════════════════════════
             {
               sourceTag: 'type:app',
@@ -99,17 +46,29 @@ export default [
             },
 
             // ═══════════════════════════════════════════════
-            // DOMAIN RULES
-            // Each domain can use its own libs + shared (no domain)
-            // Prevents: billing importing from auth internals, etc.
+            // SCOPE RULES  (domain isolation)
+            // Each domain may only reach its own libs + shared
             // ═══════════════════════════════════════════════
             {
-              sourceTag: 'domain:auth',
-              onlyDependOnLibsWithTags: ['domain:auth', 'domain:shared'],
+              sourceTag: 'scope:auth',
+              onlyDependOnLibsWithTags: ['scope:auth', 'scope:shared'],
             },
             {
-              sourceTag: 'domain:billing',
-              onlyDependOnLibsWithTags: ['domain:billing', 'domain:shared'],
+              sourceTag: 'scope:billing',
+              onlyDependOnLibsWithTags: ['scope:billing', 'scope:shared'],
+            },
+            {
+              sourceTag: 'scope:shared',
+              onlyDependOnLibsWithTags: ['scope:shared'],
+            },
+            // Apps can depend on any scope
+            {
+              sourceTag: 'scope:app',
+              onlyDependOnLibsWithTags: [
+                'scope:auth',
+                'scope:billing',
+                'scope:shared',
+              ],
             },
           ],
         },
@@ -117,7 +76,11 @@ export default [
     },
   },
   {
-    ignores: ['**/vite.config.*.timestamp*', '**/vitest.config.*.timestamp*'],
+    ignores: [
+      '**/vite.config.*.timestamp*',
+      '**/vitest.config.*.timestamp*',
+      '**/.astro/**',
+    ],
   },
   {
     files: ['**/eslint.config.mjs'],

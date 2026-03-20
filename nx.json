@@ -87,6 +87,11 @@
     "libsDir": "libs"
   },
   "generators": {
+    "@my-org/tools": {
+      "domain-lib": {
+        "factory": "./tools/generators/domain-lib/index"
+      }
+    },
     "@nx/react": {
       "application": {
         "babel": true,

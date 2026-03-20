@@ -1,0 +1,17 @@
+{
+  "name": "front-office-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/front-office-e2e/src",
+  "projectType": "application",
+  "tags": ["scope:app", "type:e2e"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/front-office-e2e"],
+      "options": {
+        "config": "apps/front-office-e2e/playwright.config.ts"
+      }
+    }
+  },
+  "implicitDependencies": ["front-office"]
+}

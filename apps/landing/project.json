@@ -1,0 +1,28 @@
+{
+  "name": "landing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/landing/src",
+  "projectType": "application",
+  "tags": ["scope:app", "type:app"],
+  "targets": {
+    "build": {
+      "command": "astro build",
+      "options": {
+        "cwd": "apps/landing"
+      },
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "serve": {
+      "command": "astro dev",
+      "options": {
+        "cwd": "apps/landing"
+      }
+    },
+    "preview": {
+      "command": "astro preview",
+      "options": {
+        "cwd": "apps/landing"
+      }
+    }
+  }
+}

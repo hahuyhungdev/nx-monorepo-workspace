@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/schema",
+  "$id": "DomainLib",
+  "title": "Create a domain library",
+  "type": "object",
+  "properties": {
+    "domain": {
+      "type": "string",
+      "description": "Domain name (e.g. auth, billing, payments)",
+      "$default": { "$source": "argv", "index": 0 },
+      "x-prompt": "What domain does this library belong to?"
+    },
+    "type": {
+      "type": "string",
+      "description": "Library type",
+      "enum": ["feature", "ui", "data-access", "util"],
+      "x-prompt": {
+        "message": "What type of library?",
+        "type": "list",
+        "items": [
+          { "value": "feature", "label": "Feature (smart components, state)" },
+          { "value": "ui", "label": "UI (presentational components)" },
+          { "value": "data-access", "label": "Data Access (API, state mgmt)" },
+          { "value": "util", "label": "Util (pure helpers, types)" }
+        ]
+      }
+    }
+  },
+  "required": ["domain", "type"]
+}

@@ -1,0 +1,40 @@
+---
+import Layout from '../layouts/base.layout.astro';
+---
+
+<Layout title="My Org — SaaS Platform">
+  <main>
+    <section style="text-align: center; padding: 4rem 2rem;">
+      <h1>Ship faster with My Org</h1>
+      <p style="font-size: 1.25rem; color: #666; max-width: 600px; margin: 1rem auto;">
+        The modern SaaS platform for teams that want to move fast without breaking things.
+      </p>
+      <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="/signup" style="padding: 0.75rem 2rem; background: #0070f3; color: white; border-radius: 8px; text-decoration: none; font-weight: 600;">
+          Get Started Free
+        </a>
+        <a href="/login" style="padding: 0.75rem 2rem; border: 1px solid #ccc; border-radius: 8px; text-decoration: none; font-weight: 600;">
+          Sign In
+        </a>
+      </div>
+    </section>
+
+    <section style="padding: 4rem 2rem; max-width: 900px; margin: 0 auto;">
+      <h2 style="text-align: center;">Why teams choose us</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+        <div>
+          <h3>🚀 Fast Setup</h3>
+          <p>Get your project running in minutes with our streamlined onboarding.</p>
+        </div>
+        <div>
+          <h3>🔒 Secure by Default</h3>
+          <p>Enterprise-grade auth and billing built-in from day one.</p>
+        </div>
+        <div>
+          <h3>📊 Analytics</h3>
+          <p>Deep insights into your usage, billing, and team activity.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

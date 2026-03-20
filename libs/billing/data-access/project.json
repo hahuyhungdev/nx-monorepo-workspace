@@ -1,0 +1,9 @@
+{
+  "name": "billing-data-access",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/billing/data-access/src",
+  "projectType": "library",
+  "tags": ["scope:billing", "type:data-access"],
+  "// targets": "to see all targets run: nx show project billing-data-access --web",
+  "targets": {}
+}

@@ -1,0 +1,11 @@
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 0.5rem 0;
+}
+
+.subtitle {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
