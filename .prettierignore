@@ -4,3 +4,7 @@
 /.nx
 /node_modules
 /tmp
+
+# Auto-generated files
+**/.astro/**
+pnpm-lock.yaml

@@ -18,7 +18,11 @@ function DashboardPage() {
           <Link to="/users">Users</Link>
           <Link to="/billing">Billing</Link>
         </nav>
-        <Button label="Sign Out" onClick={() => alert('Sign out')} variant="secondary" />
+        <Button
+          label="Sign Out"
+          onClick={() => alert('Sign out')}
+          variant="secondary"
+        />
       </Card>
     </div>
   );
