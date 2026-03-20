@@ -150,7 +150,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const logout = useCallback(async () => {
-    await apiLogout().catch(() => {});
+    await apiLogout().catch(() => {
+      // Intentionally swallow — logout should always clear local state
+    });
     persistTokens(null);
     setState({
       user: null,

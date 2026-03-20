@@ -37,5 +37,5 @@ jobs:
       # Run affected tasks in optimal order
       - run: pnpm exec nx format:check
       - run: pnpm exec nx affected -t lint --parallel=3
-      - run: pnpm exec nx affected -t test --parallel=3 --ci --code-coverage
+      - run: pnpm exec nx affected -t test --parallel=3 --coverage
       - run: pnpm exec nx affected -t build --parallel=3

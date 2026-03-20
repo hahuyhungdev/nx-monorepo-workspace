@@ -1,5 +1,6 @@
-import type { PlanTier } from '@my-org/data-access-billing';
 import styles from './billing-components.module.css';
+
+export type PlanTier = 'free' | 'starter' | 'pro' | 'enterprise';
 
 // ─── Plan Badge ──────────────────────────────────────────
 
@@ -61,11 +62,7 @@ export function PricingCard({
           <li key={f}>✓ {f}</li>
         ))}
       </ul>
-      <button
-        className={styles['cta']}
-        onClick={onSelect}
-        disabled={isCurrent}
-      >
+      <button className={styles['cta']} onClick={onSelect} disabled={isCurrent}>
         {isCurrent ? 'Current Plan' : 'Select Plan'}
       </button>
     </div>

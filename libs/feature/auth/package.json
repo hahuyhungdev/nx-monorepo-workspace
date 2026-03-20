@@ -8,5 +8,9 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "@my-org/data-access-auth": "0.0.1",
+    "react": "^19.0.0"
   }
 }

@@ -2,6 +2,7 @@ import nxPlugin from '@nx/eslint-plugin';
 
 export default [
   ...nxPlugin.configs['flat/base'],
+  ...nxPlugin.configs['flat/typescript'],
   {
     rules: {
       '@nx/enforce-module-boundaries': [
@@ -56,11 +57,11 @@ export default [
             // ═══════════════════════════════════════════════
             {
               sourceTag: 'scope:client',
-              onlyDependOnLibsWithTags: ['scope:client', 'scope:shared'],
+              notDependOnLibsWithTags: ['scope:server'],
             },
             {
               sourceTag: 'scope:server',
-              onlyDependOnLibsWithTags: ['scope:server', 'scope:shared'],
+              notDependOnLibsWithTags: ['scope:client'],
             },
 
             // ═══════════════════════════════════════════════
@@ -117,5 +118,11 @@ export default [
   },
   {
     ignores: ['**/vite.config.*.timestamp*', '**/vitest.config.*.timestamp*'],
+  },
+  {
+    files: ['**/eslint.config.mjs'],
+    rules: {
+      '@nx/enforce-module-boundaries': 'off',
+    },
   },
 ];
