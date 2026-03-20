@@ -3,10 +3,9 @@
  * Contains ZERO business logic. Only wires together domain libs.
  *
  * ✅ Correct imports (enforced by ESLint):
- *   @my-org/auth         → auth hooks, provider, pages, UI
- *   @my-org/billing      → billing hooks, provider, UI
- *   @my-org/shared/ui    → shared design system
- *   @my-org/shared/util  → pure helpers
+ *   @my-org/fe-auth     → auth hooks, provider, pages, UI
+ *   @my-org/fe-billing  → billing hooks, provider, UI
+ *   @my-org/fe-shared   → shared design system + pure helpers
  */
 import { Route, Routes, Link } from 'react-router-dom';
 import {
@@ -15,10 +14,9 @@ import {
   ProtectedRoute,
   LoginPage,
   SignupForm,
-} from '@my-org/auth';
-import { BillingProvider, useBilling, PricingCard } from '@my-org/billing';
-import { Button, Card } from '@my-org/shared/ui';
-import { formatDate } from '@my-org/shared/util';
+} from '@my-org/fe-auth';
+import { BillingProvider, useBilling, PricingCard } from '@my-org/fe-billing';
+import { Button, Card, formatDate } from '@my-org/fe-shared';
 
 // ─── Auth Pages ──────────────────────────────────────────
 

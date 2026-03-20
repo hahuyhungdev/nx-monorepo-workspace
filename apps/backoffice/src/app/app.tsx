@@ -3,8 +3,7 @@
  * Thin shell — composes feature/ui/shared libs only.
  */
 import { Route, Routes, Link } from 'react-router-dom';
-import { Button, Card } from '@my-org/shared/ui';
-import { formatDate } from '@my-org/shared/util';
+import { Button, Card, formatDate } from '@my-org/fe-shared';
 
 // ─── Dashboard ───────────────────────────────────────────
 

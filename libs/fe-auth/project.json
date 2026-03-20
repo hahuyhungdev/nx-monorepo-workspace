@@ -1,0 +1,8 @@
+{
+  "name": "fe-auth",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/fe-auth/src",
+  "projectType": "library",
+  "tags": ["scope:auth", "type:lib", "platform:fe"],
+  "targets": {}
+}

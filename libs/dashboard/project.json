@@ -1,8 +1,0 @@
-{
-  "name": "dashboard",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/dashboard/src",
-  "projectType": "library",
-  "tags": ["scope:dashboard", "type:lib", "platform:fe"],
-  "targets": {}
-}

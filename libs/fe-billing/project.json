@@ -1,0 +1,8 @@
+{
+  "name": "fe-billing",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/fe-billing/src",
+  "projectType": "library",
+  "tags": ["scope:billing", "type:lib", "platform:fe"],
+  "targets": {}
+}

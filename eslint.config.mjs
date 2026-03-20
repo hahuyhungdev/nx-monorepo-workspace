@@ -36,10 +36,6 @@ export default [
               onlyDependOnLibsWithTags: ['scope:billing', 'scope:shared'],
             },
             {
-              sourceTag: 'scope:dashboard',
-              onlyDependOnLibsWithTags: ['scope:dashboard', 'scope:shared'],
-            },
-            {
               sourceTag: 'scope:shared',
               onlyDependOnLibsWithTags: ['scope:shared'],
             },
@@ -49,7 +45,6 @@ export default [
               onlyDependOnLibsWithTags: [
                 'scope:auth',
                 'scope:billing',
-                'scope:dashboard',
                 'scope:shared',
               ],
             },

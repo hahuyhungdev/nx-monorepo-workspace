@@ -15,11 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@my-org/auth": ["libs/auth/src/index.ts"],
-      "@my-org/billing": ["libs/billing/src/index.ts"],
-      "@my-org/dashboard": ["libs/dashboard/src/index.ts"],
-      "@my-org/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@my-org/shared/util": ["libs/shared/util/src/index.ts"],
+      "@my-org/fe-auth": ["libs/fe-auth/src/index.ts"],
+      "@my-org/fe-billing": ["libs/fe-billing/src/index.ts"],
+      "@my-org/fe-shared": ["libs/fe-shared/src/index.ts"],
       "@my-org/be-shared": ["libs/be-shared/src/index.ts"]
     }
   },
