@@ -22,6 +22,11 @@ pnpm exec nx serve api-worker     # NestJS worker → http://localhost:3002
 pnpm dev
 ```
 
+## Engineering Docs
+
+- Full standards and runbooks: `docs/README.md`
+- Latest architecture/quality audit: `docs/audits/2026-04-10-structure-audit.md`
+
 ## Architecture
 
 ```

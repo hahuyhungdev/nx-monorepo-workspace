@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/front-office-e2e/src",
   "projectType": "application",
-  "tags": ["scope:app", "type:e2e"],
+  "tags": ["scope:app", "type:e2e", "platform:fe"],
   "targets": {
     "e2e": {
       "executor": "@nx/playwright:playwright",

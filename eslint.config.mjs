@@ -48,6 +48,11 @@ export default [
                 'scope:shared',
               ],
             },
+            // E2E projects can consume app and lib projects only.
+            {
+              sourceTag: 'type:e2e',
+              onlyDependOnLibsWithTags: ['type:app', 'type:lib'],
+            },
           ],
         },
       ],
