@@ -20,11 +20,11 @@ tags: [
 
 ### Type Values
 
-| Type | Meaning | Examples | Entry Point | Executable |
-|------|---------|----------|------------|-----------|
-| `type:app` | Runnable Application | `api-main`, `front-office` | `main.ts`, `index.tsx` | Yes ✓ |
-| `type:lib` | Reusable Library | `fe-auth`, `be-shared` | `index.ts` (exports only) | No |
-| `type:e2e` | End-to-End Tests | `front-office-e2e` | `*.spec.ts` | Yes (via test runner) |
+| Type       | Meaning              | Examples                   | Entry Point               | Executable            |
+| ---------- | -------------------- | -------------------------- | ------------------------- | --------------------- |
+| `type:app` | Runnable Application | `api-main`, `front-office` | `main.ts`, `index.tsx`    | Yes ✓                 |
+| `type:lib` | Reusable Library     | `fe-auth`, `be-shared`     | `index.ts` (exports only) | No                    |
+| `type:e2e` | End-to-End Tests     | `front-office-e2e`         | `*.spec.ts`               | Yes (via test runner) |
 
 ### Visual: Type Hierarchy
 
@@ -71,11 +71,11 @@ tags: [
 
 ### Platform Values
 
-| Platform | Technology Stack | Examples | Use Case |
-|----------|------------------|----------|----------|
-| `platform:be` | Node.js, NestJS, TypeORM, SQLite | `api-main`, `api-admin`, `be-shared` | Backend APIs & utilities |
-| `platform:fe` | React 19, Vite, Vitest, Playwright | `front-office`, `fe-auth`, `fe-shared` | Frontend SPAs & components |
-| `platform:shared` | Universal TypeScript utilities | *(None currently)* | Shared across BE & FE |
+| Platform          | Technology Stack                   | Examples                               | Use Case                   |
+| ----------------- | ---------------------------------- | -------------------------------------- | -------------------------- |
+| `platform:be`     | Node.js, NestJS, TypeORM, SQLite   | `api-main`, `api-admin`, `be-shared`   | Backend APIs & utilities   |
+| `platform:fe`     | React 19, Vite, Vitest, Playwright | `front-office`, `fe-auth`, `fe-shared` | Frontend SPAs & components |
+| `platform:shared` | Universal TypeScript utilities     | _(None currently)_                     | Shared across BE & FE      |
 
 ### Visual: Platform Isolation Wall
 
@@ -118,14 +118,14 @@ tags: [
 
 ### Isolation Rules
 
-| Rule | When | Effect |
-|------|------|--------|
-| Backend → Backend | `platform:be` imports `platform:be` | ✓ Allowed |
-| Backend → Shared | `platform:be` imports `platform:shared` | ✓ Allowed |
-| Backend → Frontend | `platform:be` imports `platform:fe` | ✗ **ESLint Error** |
-| Frontend → Frontend | `platform:fe` imports `platform:fe` | ✓ Allowed |
-| Frontend → Shared | `platform:fe` imports `platform:shared` | ✓ Allowed |
-| Frontend → Backend | `platform:fe` imports `platform:be` | ✗ **ESLint Error** |
+| Rule                | When                                    | Effect             |
+| ------------------- | --------------------------------------- | ------------------ |
+| Backend → Backend   | `platform:be` imports `platform:be`     | ✓ Allowed          |
+| Backend → Shared    | `platform:be` imports `platform:shared` | ✓ Allowed          |
+| Backend → Frontend  | `platform:be` imports `platform:fe`     | ✗ **ESLint Error** |
+| Frontend → Frontend | `platform:fe` imports `platform:fe`     | ✓ Allowed          |
+| Frontend → Shared   | `platform:fe` imports `platform:shared` | ✓ Allowed          |
+| Frontend → Backend  | `platform:fe` imports `platform:be`     | ✗ **ESLint Error** |
 
 ### Example: Platform Blocking
 
@@ -133,15 +133,14 @@ tags: [
 // ❌ BLOCKED - Platform mismatch
 // apps/api-main/src/main.ts (platform:be)
 
-import { AuthProvider } from "@my-org/fe-auth";  
+import { AuthProvider } from '@my-org/fe-auth';
 // ✗ Error: Cannot import platform:fe into platform:be
 
-import { React } from "react";
+import { React } from 'react';
 // ✗ Error: Frontend dependency in backend app
 
-
 // ✓ ALLOWED - Same platform
-import { DatabaseModule } from "@my-org/be-shared";
+import { DatabaseModule } from '@my-org/be-shared';
 // ✓ OK: platform:be → platform:be
 ```
 
@@ -153,12 +152,12 @@ import { DatabaseModule } from "@my-org/be-shared";
 
 ### Scope Values
 
-| Scope | Domain | Examples | Purpose |
-|-------|--------|----------|---------|
-| `scope:auth` | Authentication & Authorization | `fe-auth` | All auth logic: login, session, user |
-| `scope:billing` | Billing & Payments | `fe-billing` | All billing logic: subscriptions, invoices |
-| `scope:shared` | Cross-cutting concerns | `fe-shared`, `be-shared` | Common utilities, helpers, components |
-| `scope:app` | Application bootstrap | `api-main`, `front-office` | Main apps, entry points |
+| Scope           | Domain                         | Examples                   | Purpose                                    |
+| --------------- | ------------------------------ | -------------------------- | ------------------------------------------ |
+| `scope:auth`    | Authentication & Authorization | `fe-auth`                  | All auth logic: login, session, user       |
+| `scope:billing` | Billing & Payments             | `fe-billing`               | All billing logic: subscriptions, invoices |
+| `scope:shared`  | Cross-cutting concerns         | `fe-shared`, `be-shared`   | Common utilities, helpers, components      |
+| `scope:app`     | Application bootstrap          | `api-main`, `front-office` | Main apps, entry points                    |
 
 ### Visual: Scope Compartmentalization
 
@@ -206,38 +205,36 @@ import { DatabaseModule } from "@my-org/be-shared";
 
 ### Scope Rules
 
-| From | To | Result | Reason |
-|------|-----|--------|--------|
-| `scope:auth` lib | `scope:auth` lib | ✓ OK | Same scope |
-| `scope:auth` lib | `scope:shared` lib | ✓ OK | Shared is universal |
-| `scope:auth` lib | `scope:billing` lib | ✗ Error | Cannot see other scopes |
-| `scope:app` (app) | Any scope | ✓ OK | Apps orchestrate all |
-| `scope:shared` lib | `scope:auth` lib | ✗ Error | Shared is isolated |
+| From               | To                  | Result  | Reason                  |
+| ------------------ | ------------------- | ------- | ----------------------- |
+| `scope:auth` lib   | `scope:auth` lib    | ✓ OK    | Same scope              |
+| `scope:auth` lib   | `scope:shared` lib  | ✓ OK    | Shared is universal     |
+| `scope:auth` lib   | `scope:billing` lib | ✗ Error | Cannot see other scopes |
+| `scope:app` (app)  | Any scope           | ✓ OK    | Apps orchestrate all    |
+| `scope:shared` lib | `scope:auth` lib    | ✗ Error | Shared is isolated      |
 
 ### Example: Scope Isolation
 
 ```typescript
 // ✓ fe-auth/src/index.ts (scope:auth)
-export { LoginForm } from "./ui/login-form";
-export { useAuth } from "./hooks/use-auth";
-export { AuthProvider } from "./providers/auth-provider";
+export { LoginForm } from './ui/login-form';
+export { useAuth } from './hooks/use-auth';
+export { AuthProvider } from './providers/auth-provider';
 
-import { Button } from "@my-org/fe-shared";  // ✓ OK
-import { useTheme } from "@my-org/fe-shared"; // ✓ OK
-
+import { Button } from '@my-org/fe-shared'; // ✓ OK
+import { useTheme } from '@my-org/fe-shared'; // ✓ OK
 
 // ❌ fe-auth/src/pages/login.tsx (scope:auth)
-import { BillingCard } from "@my-org/fe-billing";
+import { BillingCard } from '@my-org/fe-billing';
 // ✗ Error: scope:auth cannot import scope:billing
 
-import { PricingTable } from "@my-org/fe-billing";
+import { PricingTable } from '@my-org/fe-billing';
 // ✗ Error: Different scope
 
-
 // ✓ apps/front-office/src/app.tsx (scope:app)
-import { LoginForm } from "@my-org/fe-auth";      // ✓ OK - auth
-import { PricingTable } from "@my-org/fe-billing"; // ✓ OK - billing
-import { Button } from "@my-org/fe-shared";       // ✓ OK - shared
+import { LoginForm } from '@my-org/fe-auth'; // ✓ OK - auth
+import { PricingTable } from '@my-org/fe-billing'; // ✓ OK - billing
+import { Button } from '@my-org/fe-shared'; // ✓ OK - shared
 
 // App can bring all features together!
 ```
@@ -260,15 +257,18 @@ import { Button } from "@my-org/fe-shared";       // ✓ OK - shared
 **Purpose:** Authentication for frontend
 
 **Can Import:**
+
 - ✓ `@my-org/fe-shared` (shared utilities, components)
 - ✓ `@my-org/fe-auth` (itself)
 
 **Cannot Import:**
+
 - ✗ `@my-org/fe-billing` (different scope)
 - ✗ `@my-org/be-shared` (different platform)
 - ✗ `api-main` (apps cannot be imported)
 
 **Directory Structure:**
+
 ```
 libs/fe-auth/src/
 ├── providers/
@@ -300,21 +300,24 @@ libs/fe-auth/src/
 **Purpose:** Main backend API server
 
 **Can Import:**
+
 - ✓ `@my-org/be-shared` (backend utilities)
 - ✓ All internal modules
 
 **Cannot Import:**
+
 - ✗ `@my-org/fe-auth` (frontend library)
 - ✗ `@my-org/fe-shared` (frontend utilities)
 - ✗ Other apps like `api-admin`
 
 **Example Code:**
+
 ```typescript
 // apps/api-main/src/main.ts
-import { NestFactory } from "@nestjs/core";
-import { DatabaseModule } from "@my-org/be-shared";
-import { HealthModule } from "@my-org/be-shared";
-import { AppModule } from "./app/app.module";
+import { NestFactory } from '@nestjs/core';
+import { DatabaseModule } from '@my-org/be-shared';
+import { HealthModule } from '@my-org/be-shared';
+import { AppModule } from './app/app.module';
 
 // ✓ Can import be-shared
 // ✗ Cannot import fe-auth, fe-billing, etc.
@@ -336,15 +339,18 @@ import { AppModule } from "./app/app.module";
 **Purpose:** Customer-facing React SPA
 
 **Can Import:**
+
 - ✓ `@my-org/fe-auth` (authentication module)
 - ✓ `@my-org/fe-billing` (billing module)
 - ✓ `@my-org/fe-shared` (shared utilities)
 
 **Cannot Import:**
+
 - ✗ `@my-org/be-shared` (backend utilities)
 - ✗ `api-main` (cannot import apps)
 
 **Example Code:**
+
 ```typescript
 // apps/front-office/src/app.tsx
 import { AuthProvider } from "@my-org/fe-auth";
@@ -386,9 +392,11 @@ export function App() {
 **Purpose:** Backend utilities and cross-cutting concerns
 
 **Can Import:**
+
 - ✓ `@my-org/be-shared` (itself only)
 
 **Cannot Import:**
+
 - ✗ `@my-org/fe-auth` (frontend)
 - ✗ `@my-org/fe-billing` (frontend)
 - ✗ Any app
@@ -396,10 +404,11 @@ export function App() {
 **Concept:** Shared libraries are "stable" and don't import domain libraries.
 
 **Example Code:**
+
 ```typescript
 // libs/be-shared/src/database/database.module.ts
-import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [TypeOrmModule.forRoot(/* config */)],
@@ -456,20 +465,20 @@ type:e2e → Can only import [type:app, type:lib]
 
 ## 6. Valid Import Matrix
 
-| From | To | Allowed | Reason |
-|------|-----|---------|--------|
-| `fe-auth` | `fe-shared` | ✓ | Same platform, shared is universal |
-| `fe-auth` | `fe-auth` | ✓ | Same scope & platform |
-| `fe-auth` | `fe-billing` | ✗ | Different scope (auth vs billing) |
-| `fe-auth` | `be-shared` | ✗ | Different platform (fe vs be) |
-| `api-main` | `be-shared` | ✓ | Same platform, scope:app can use shared |
-| `api-main` | `api-admin` | ✗ | Cannot import apps |
-| `api-main` | `fe-auth` | ✗ | Different platform (be vs fe) |
-| `front-office` | `fe-auth` | ✓ | Same platform, scope:app can use any scope |
-| `front-office` | `fe-billing` | ✓ | Same platform, scope:app can use any scope |
-| `front-office` | `be-shared` | ✗ | Different platform (fe vs be) |
-| `front-office-e2e` | `front-office` app | ✓ | E2E tests the app |
-| `front-office-e2e` | `fe-auth` | ✗ | E2E only imports apps |
+| From               | To                 | Allowed | Reason                                     |
+| ------------------ | ------------------ | ------- | ------------------------------------------ |
+| `fe-auth`          | `fe-shared`        | ✓       | Same platform, shared is universal         |
+| `fe-auth`          | `fe-auth`          | ✓       | Same scope & platform                      |
+| `fe-auth`          | `fe-billing`       | ✗       | Different scope (auth vs billing)          |
+| `fe-auth`          | `be-shared`        | ✗       | Different platform (fe vs be)              |
+| `api-main`         | `be-shared`        | ✓       | Same platform, scope:app can use shared    |
+| `api-main`         | `api-admin`        | ✗       | Cannot import apps                         |
+| `api-main`         | `fe-auth`          | ✗       | Different platform (be vs fe)              |
+| `front-office`     | `fe-auth`          | ✓       | Same platform, scope:app can use any scope |
+| `front-office`     | `fe-billing`       | ✓       | Same platform, scope:app can use any scope |
+| `front-office`     | `be-shared`        | ✗       | Different platform (fe vs be)              |
+| `front-office-e2e` | `front-office` app | ✓       | E2E tests the app                          |
+| `front-office-e2e` | `fe-auth`          | ✗       | E2E only imports apps                      |
 
 ---
 
@@ -480,14 +489,15 @@ type:e2e → Can only import [type:app, type:lib]
 ```json
 {
   "tags": [
-    "scope:???",      // ← MUST have one of: auth, billing, app, shared
-    "type:???",       // ← MUST have one of: app, lib, e2e
-    "platform:???"    // ← MUST have one of: fe, be, shared
+    "scope:???", // ← MUST have one of: auth, billing, app, shared
+    "type:???", // ← MUST have one of: app, lib, e2e
+    "platform:???" // ← MUST have one of: fe, be, shared
   ]
 }
 ```
 
 **Why?**
+
 - ESLint `@nx/enforce-module-boundaries` will **block imports** if tags are missing
 - Missing tags = project becomes invisible = import fails with ESLint error
 - This is **error level**, not warning → prevents merging to `main`
@@ -608,6 +618,7 @@ scope:shared (Cross-cutting)
 ### Mistake 1: Missing Tags
 
 **Problem:**
+
 ```json
 {
   "name": "new-feature-lib"
@@ -616,6 +627,7 @@ scope:shared (Cross-cutting)
 ```
 
 **Fix:**
+
 ```json
 {
   "name": "new-feature-lib",
@@ -629,15 +641,17 @@ scope:shared (Cross-cutting)
 ### Mistake 2: Cross-Scope Import
 
 **Problem:**
+
 ```typescript
 // libs/fe-auth/src/index.ts (scope:auth)
-import { BillingCard } from "@my-org/fe-billing";  // ❌ Error
+import { BillingCard } from '@my-org/fe-billing'; // ❌ Error
 ```
 
 **Fix:**
+
 ```typescript
 // libs/fe-auth/src/index.ts (scope:auth)
-import { Button } from "@my-org/fe-shared";  // ✓ Use shared instead
+import { Button } from '@my-org/fe-shared'; // ✓ Use shared instead
 ```
 
 ---
@@ -645,15 +659,17 @@ import { Button } from "@my-org/fe-shared";  // ✓ Use shared instead
 ### Mistake 3: Cross-Platform Import
 
 **Problem:**
+
 ```typescript
 // apps/front-office/src/app.tsx (platform:fe)
-import { DatabaseModule } from "@my-org/be-shared";  // ❌ Error
+import { DatabaseModule } from '@my-org/be-shared'; // ❌ Error
 ```
 
 **Fix:**
+
 ```typescript
 // apps/front-office/src/app.tsx (platform:fe)
-import { ThemeProvider } from "@my-org/fe-shared";  // ✓ Use fe-shared
+import { ThemeProvider } from '@my-org/fe-shared'; // ✓ Use fe-shared
 ```
 
 ---
@@ -661,14 +677,16 @@ import { ThemeProvider } from "@my-org/fe-shared";  // ✓ Use fe-shared
 ### Mistake 4: Importing Apps
 
 **Problem:**
+
 ```typescript
 // libs/fe-auth/src/index.ts
-import { App } from "@my-org/front-office";  // ❌ Cannot import type:app
+import { App } from '@my-org/front-office'; // ❌ Cannot import type:app
 ```
 
 **Fix:**
+
 ```typescript
-// Libs should not import apps. 
+// Libs should not import apps.
 // Only apps import libs.
 ```
 
@@ -676,13 +694,14 @@ import { App } from "@my-org/front-office";  // ❌ Cannot import type:app
 
 ## Summary
 
-| Dimension | Values | Purpose | Enforcement |
-|-----------|--------|---------|------------|
-| **Type** | app, lib, e2e | Project role/category | Apps ≠ Libs, E2E isolated |
-| **Platform** | fe, be, shared | Tech stack isolation | BE ≠ FE firewall |
-| **Scope** | auth, billing, app, shared | Feature domain isolation | Scope silos via rules |
+| Dimension    | Values                     | Purpose                  | Enforcement               |
+| ------------ | -------------------------- | ------------------------ | ------------------------- |
+| **Type**     | app, lib, e2e              | Project role/category    | Apps ≠ Libs, E2E isolated |
+| **Platform** | fe, be, shared             | Tech stack isolation     | BE ≠ FE firewall          |
+| **Scope**    | auth, billing, app, shared | Feature domain isolation | Scope silos via rules     |
 
 **Remember:** All 3 tags are **mandatory** and **hard-enforced** via ESLint. This ensures:
+
 - ✓ Clean separation of concerns
 - ✓ Predictable dependencies
 - ✓ Scalable monorepo structure
@@ -691,6 +710,7 @@ import { App } from "@my-org/front-office";  // ❌ Cannot import type:app
 ---
 
 **Next Steps:**
+
 - Review your project's [project.json](../README.md) file
 - Verify it has all 3 tags
 - Check if your imports match the rules above

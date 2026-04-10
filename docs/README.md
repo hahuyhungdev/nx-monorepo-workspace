@@ -29,14 +29,14 @@ This documentation pack is the authoritative source for operating and extending 
 
 ## Interactive Diagrams (FigJam)
 
-| Diagram | Purpose | Best For |
-|---------|---------|----------|
-| [**Tag System Architecture**](https://www.figma.com/online-whiteboard/create-diagram/ab6fb1b7-cd96-4692-9083-8a5bdf36a282) | Overview of type, platform, scope dimensions | Understanding the structure |
-| [**Platform Isolation Firewall**](https://www.figma.com/online-whiteboard/create-diagram/24294205-2f22-42db-b412-e6c5c5cccf4d) | Backend vs Frontend separation | Platform dependency rules |
-| [**Scope Isolation Domains**](https://www.figma.com/online-whiteboard/create-diagram/4f87ec48-ea7c-40d7-8616-ff7c6002d4a0) | Auth vs Billing feature separation | Feature scope rules |
-| [**Full Dependency Flow**](https://www.figma.com/online-whiteboard/create-diagram/fb837c0e-6432-45e9-beda-9ca48cf877ab) | Current projects & valid imports | Seeing the full picture |
-| [**Decision Tree**](https://www.figma.com/online-whiteboard/create-diagram/250dda49-f3a9-4f49-9586-0287ed5154f5) | How to tag new projects | Creating new apps/libs |
-| [**Import Rules Matrix**](https://www.figma.com/online-whiteboard/create-diagram/6aeba7f8-9944-4a4d-aad9-4ac984eba6c9) | Valid ✓ vs Blocked ✗ scenarios | Debugging import errors |
+| Diagram                                                                                                                        | Purpose                                      | Best For                    |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------- | --------------------------- |
+| [**Tag System Architecture**](https://www.figma.com/online-whiteboard/create-diagram/ab6fb1b7-cd96-4692-9083-8a5bdf36a282)     | Overview of type, platform, scope dimensions | Understanding the structure |
+| [**Platform Isolation Firewall**](https://www.figma.com/online-whiteboard/create-diagram/24294205-2f22-42db-b412-e6c5c5cccf4d) | Backend vs Frontend separation               | Platform dependency rules   |
+| [**Scope Isolation Domains**](https://www.figma.com/online-whiteboard/create-diagram/4f87ec48-ea7c-40d7-8616-ff7c6002d4a0)     | Auth vs Billing feature separation           | Feature scope rules         |
+| [**Full Dependency Flow**](https://www.figma.com/online-whiteboard/create-diagram/fb837c0e-6432-45e9-beda-9ca48cf877ab)        | Current projects & valid imports             | Seeing the full picture     |
+| [**Decision Tree**](https://www.figma.com/online-whiteboard/create-diagram/250dda49-f3a9-4f49-9586-0287ed5154f5)               | How to tag new projects                      | Creating new apps/libs      |
+| [**Import Rules Matrix**](https://www.figma.com/online-whiteboard/create-diagram/6aeba7f8-9944-4a4d-aad9-4ac984eba6c9)         | Valid ✓ vs Blocked ✗ scenarios               | Debugging import errors     |
 
 ---
 
@@ -57,6 +57,7 @@ This documentation pack is the authoritative source for operating and extending 
 ### Pre-PR Quality Check
 
 Run the [Quality Gates Runbook](./quality-gates-runbook.md) to verify:
+
 - ✅ ESLint lint pass (`nx run-many --target=lint`)
 - ✅ Unit tests pass (`nx run-many --target=test`)
 - ✅ Builds succeed (`nx run-many --target=build`)
@@ -82,12 +83,14 @@ docs/
 ## Project Organization
 
 ### Backend (Node.js/NestJS)
+
 - **apps/api-main** - Primary REST API
 - **apps/api-admin** - Admin API
 - **apps/api-worker** - Background jobs
 - **libs/be-shared** - Backend utilities (database, logging, middleware)
 
 ### Frontend (React/Vite)
+
 - **apps/front-office** - Customer-facing SPA
 - **apps/backoffice** - Internal management SPA
 - **libs/fe-auth** - Authentication module
@@ -95,10 +98,12 @@ docs/
 - **libs/fe-shared** - Frontend utilities (components, hooks, services)
 
 ### E2E Tests
+
 - **apps/front-office-e2e** - Tests for front-office
 - **apps/backoffice-e2e** - Tests for backoffice
 
 ### Other
+
 - **apps/landing** - Astro static landing page
 
 ---
@@ -112,9 +117,9 @@ Every project must have exactly 3 tags in `project.json`:
 ```json
 {
   "tags": [
-    "scope:???",      // Feature domain: auth, billing, app, shared
-    "type:???",       // Project type: app, lib, e2e
-    "platform:???"    // Tech stack: fe, be, shared
+    "scope:???", // Feature domain: auth, billing, app, shared
+    "type:???", // Project type: app, lib, e2e
+    "platform:???" // Tech stack: fe, be, shared
   ]
 }
 ```
@@ -122,6 +127,7 @@ Every project must have exactly 3 tags in `project.json`:
 ### ESLint Boundary Enforcement
 
 The [eslint-plugin-nx](https://nx.dev/nx-plugins/nx/plugins/eslint-plugin-nx) enforces module boundaries:
+
 - **Platform Gate**: Backend cannot import frontend libs
 - **Scope Gate**: Auth lib cannot import billing lib
 - **Type Gate**: E2E tests cannot be imported as libraries
@@ -130,11 +136,11 @@ All violations raise ESLint **errors** (blocking CI).
 
 ### Three Dimensions
 
-| Dimension | Values | Purpose |
-|-----------|--------|---------|
-| **Type** | app, lib, e2e | Project role/category |
-| **Platform** | fe, be, shared | Technology stack isolation |
-| **Scope** | auth, billing, app, shared | Feature domain isolation |
+| Dimension    | Values                     | Purpose                    |
+| ------------ | -------------------------- | -------------------------- |
+| **Type**     | app, lib, e2e              | Project role/category      |
+| **Platform** | fe, be, shared             | Technology stack isolation |
+| **Scope**    | auth, billing, app, shared | Feature domain isolation   |
 
 ---
 
